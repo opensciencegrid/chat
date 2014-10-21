@@ -12,9 +12,9 @@ function handler(req, res) {
     }
     var u = url.parse(req.url, true);
 
-    console.dir(req.headers);
-    console.log("remote addr:"+remote_addr);
-    console.log("url:"+u.pathname);
+    //console.dir(req.headers);
+    //console.log("remote addr:"+remote_addr);
+    //console.log("url:"+u.pathname);
 
     if(u.pathname == "/") {
         fs.readFile(__dirname + '/chat.html', function (err, data) {
@@ -40,8 +40,8 @@ function handler(req, res) {
             res.end();
         } else {
         */
-        console.log(remote_addr);
-        console.dir(u);
+        //console.log(remote_addr);
+        //console.dir(u);
         var key = u.query.key;
         var cid = u.query.cid;
         var name = u.query.name;
@@ -113,17 +113,22 @@ io.sockets.on('connection', function (socket) {
         client = clients[socket.id];
         //store ticket id associated with this connection
         client.ticketid = info.ticketid;
-        client.ip = socket.handshake.address;
+
+        //client.ip = socket.handshake.address; //could be nginx server address
+        client.ip = socket.handshake.headers["x-real-ip"];
+
+        console.dir(socket);
 
         //lookup nodekey and store user info (if available..)
         var a = acl[info.nodekey];
         if(a != undefined) {
             console.log("attached access registration for socket:"+socket.id);
-            console.dir(a);
+            //console.dir(a);
             client.acl = a;
         } else {
             console.log("failed to find acl for nodekey:"+info.nodekey+" - assuming guest");
             client.acl = {cid: undefined, name: "Guest", ip: client.ip};
+            console.dir(client.acl);
         }
 
         //find current clients with the same ticket ids
