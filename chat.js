@@ -26,6 +26,8 @@ function handler(req, res) {
             res.end(data);
         });
     } else if(u.pathname == "/ac") {
+        //IMPORTANT - make sure to only allow access via GOC LAN
+        /*
         var lan = false;
         config.goclan_prefix.forEach(function(prefix) {
             if(~remote_addr.indexOf(prefix)) {
@@ -37,17 +39,17 @@ function handler(req, res) {
             res.writeHead(403);
             res.end();
         } else {
-            //console.log(remote_addr);
-            //console.dir(u);
-            var key = u.query.key;
-            var cid = u.query.cid;
-            var name = u.query.name;
-            acl[key] = {cid: cid, name: name, time: new Date()}; 
-            //console.dir(acl);
-            console.log("registered:"+key+" name:"+name);
-            res.writeHead(200);
-            res.end('registered');
-        }
+        */
+        console.log(remote_addr);
+        console.dir(u);
+        var key = u.query.key;
+        var cid = u.query.cid;
+        var name = u.query.name;
+        acl[key] = {cid: cid, name: name, time: new Date()}; 
+        //console.dir(acl);
+        console.log("registered:"+key+" name:"+name);
+        res.writeHead(200);
+        res.end('registered');
     } else {
         res.writeHead(404);
         res.end();
