@@ -1,4 +1,3 @@
-//var https = require('https');
 var http = require('http');
 var fs = require('fs');
 var url = require('url');
@@ -64,7 +63,9 @@ app.on('close', function() {
 console.log('server listening on '+config.port);
 app.listen(config.port);
 
+//var io = require('socket.io').listen(app, {origins: 'grid.iu.edu:* opensciencegrid.org:*'});
 var io = require('socket.io').listen(app);
+//io.origins('grid2.iu.edu:* opensciencegrid.org:*');
 
 var clients = {}; //currently connected clients 
 var clients_len = 0;
