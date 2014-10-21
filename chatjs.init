@@ -10,7 +10,7 @@
 USER="root"
  
 DAEMON="/usr/bin/node"
-ROOT_DIR="/usr/local/osg-chat"
+ROOT_DIR="/usr/local/chat"
  
 SERVER="$ROOT_DIR/chat.js"
 LOG_FILE="/var/log/chatjs.log"
