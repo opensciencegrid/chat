@@ -108,7 +108,7 @@ io.sockets.on('connection', function (socket) {
 
     socket.on('authenticate', function(info) {
         console.log("client sent us auth info");
-        console.dir(info);
+        //console.dir(info);
         
         client = clients[socket.id];
         //store ticket id associated with this connection
@@ -117,7 +117,7 @@ io.sockets.on('connection', function (socket) {
         //client.ip = socket.handshake.address; //could be nginx server address
         client.ip = socket.handshake.headers["x-real-ip"];
 
-        console.dir(socket);
+        //console.dir(socket);
 
         //lookup nodekey and store user info (if available..)
         var a = acl[info.nodekey];
@@ -128,7 +128,7 @@ io.sockets.on('connection', function (socket) {
         } else {
             console.log("failed to find acl for nodekey:"+info.nodekey+" - assuming guest");
             client.acl = {cid: undefined, name: "Guest", ip: client.ip};
-            console.dir(client.acl);
+            //console.dir(client.acl);
         }
 
         //find current clients with the same ticket ids
